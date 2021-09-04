@@ -19,36 +19,36 @@ Get video by its video Id. Video Id is UUIDv4 generated.
 - Response:
   ```json
 	{
-			"status": 0,
-			"data": {
-					"id": "e1598eb5-841d-4052-bd93-63bef3e29d3e",
-					"created_at": "1630769436",
-					"description": "test",
-					"start_detail_id": null,
-					"thumbnail_image": "static/image/00e5a748-2d61-4f5e-b59d-b668707bd822-1630769374381.jpg",
-					"thumbnail_video": null,
-					"title": "test",
-					"updated_at": "1630769436",
-					"user_id": null,
-					"details": [
-							{
-									"id": "2c1db448-0f94-4c36-a0cf-baeb0196e06a",
-									"video_id": "e1598eb5-841d-4052-bd93-63bef3e29d3e",
-									"created_at": "1970-01-19T20:59:30.896Z",
-									"default_next_detail_id": null,
-									"next_video_details": [
-											{
-													"shown_text": "test 1",
-													"next_detail_id": null
-											}
-									],
-									"prev_detail_id": null,
-									"time_to_show_next": "5",
-									"updated_at": "1970-01-19T20:59:30.896Z",
-									"video_url": null
-							}
-					]
-			}
+		"status": 0,
+		"data": {
+			"id": "e1598eb5-841d-4052-bd93-63bef3e29d3e",
+			"created_at": "1630769436",
+			"description": "test",
+			"start_detail_id": null,
+			"thumbnail_image": "static/image/00e5a748-2d61-4f5e-b59d-b668707bd822-1630769374381.jpg",
+			"thumbnail_video": null,
+			"title": "test",
+			"updated_at": "1630769436",
+			"user_id": null,
+			"details": [
+				{
+					"id": "2c1db448-0f94-4c36-a0cf-baeb0196e06a",
+					"video_id": "e1598eb5-841d-4052-bd93-63bef3e29d3e",
+					"created_at": "1970-01-19T20:59:30.896Z",
+					"default_next_detail_id": null,
+					"next_video_details": [
+						{
+							"shown_text": "test 1",
+							"next_detail_id": null
+						}
+					],
+					"prev_detail_id": null,
+					"time_to_show_next": "5",
+					"updated_at": "1970-01-19T20:59:30.896Z",
+					"video_url": null
+				}
+			]
+		}
 	}
 	```	
 
@@ -59,25 +59,25 @@ Create new video object and generate new UUIDv4 as id.
 - Body:
 	```json
 	{
-	    "title": "test",
-	    "description": "test",
-	    "thumbnail_image": "",
-			"thumbnail_video": ""
+		"title": "test",
+		"description": "test",
+		"thumbnail_image": "",
+		"thumbnail_video": ""
 	}
 	```	
 - Response:
 	```json
 	{
-			"status": 0,
-			"data": {
-					"title": "test",
-					"description": "test",
-					"thumbnail_image": "",
-					"thumbnail_video": "",
-					"id": "e1598eb5-841d-4052-bd93-63bef3e29d3e",
-					"created_at": 1630769436,
-					"updated_at": 1630769436
-			}
+		"status": 0,
+		"data": {
+			"title": "test",
+			"description": "test",
+			"thumbnail_image": "",
+			"thumbnail_video": "",
+			"id": "e1598eb5-841d-4052-bd93-63bef3e29d3e",
+			"created_at": 1630769436,
+			"updated_at": 1630769436
+		}
 	}
 	```
 
@@ -88,29 +88,29 @@ Update video object based on its id.
 - Body:
 	```json
 	{
- 			"time_to_show_next": 4
+		"time_to_show_next": 4
 	}
 	```	
 - Response:
 	```json
 	{
-			"status": 0,
-			"data": {
-					"id": "4dea4a7a-b570-49c9-a617-21ebf298b1c9",
-					"created_at": "1630776616",
-					"default_next_detail_id": null,
-					"next_video_details": [
-							{
-									"shown_text": "test 1",
-									"next_detail_id": null
-							}
-					],
-					"prev_detail_id": null,
-					"time_to_show_next": 4,
-					"updated_at": 1630776735,
-					"video_id": null,
-					"video_url": ""
-			}
+		"status": 0,
+		"data": {
+			"id": "4dea4a7a-b570-49c9-a617-21ebf298b1c9",
+			"created_at": "1630776616",
+			"default_next_detail_id": null,
+			"next_video_details": [
+				{
+					"shown_text": "test 1",
+					"next_detail_id": null
+				}
+			],
+			"prev_detail_id": null,
+			"time_to_show_next": 4,
+			"updated_at": 1630776735,
+			"video_id": null,
+			"video_url": ""
+		}
 	}
 	```
 
@@ -123,33 +123,33 @@ Create new video detail object.
 - Body:
 	```json
 	{
-			"video_id": "e1598eb5-841d-4052-bd93-63bef3e29d3e",
-			"time_to_show_next": 5,
-			"video_url": "",
-			"next_video_details": [
-					{
-							"shown_text": "test 1"
-					}
-			]
+		"video_id": "e1598eb5-841d-4052-bd93-63bef3e29d3e",
+		"time_to_show_next": 5,
+		"video_url": "",
+		"next_video_details": [
+			{
+				"shown_text": "test 1"
+			}
+		]
 	}
 	```
 - Response:
 	```json
 	{
-			"status": 0,
-			"data": {
-					"video_id": "e1598eb5-841d-4052-bd93-63bef3e29d3e",
-					"time_to_show_next": 5,
-					"video_url": "",
-					"next_video_details": [
-							{
-									"shown_text": "test 1"
-							}
-					],
-					"id": "4dea4a7a-b570-49c9-a617-21ebf298b1c9",
-					"created_at": 1630776616,
-					"updated_at": 1630776616
-			}
+		"status": 0,
+		"data": {
+			"video_id": "e1598eb5-841d-4052-bd93-63bef3e29d3e",
+			"time_to_show_next": 5,
+			"video_url": "",
+			"next_video_details": [
+				{
+					"shown_text": "test 1"
+				}
+			],
+			"id": "4dea4a7a-b570-49c9-a617-21ebf298b1c9",
+			"created_at": 1630776616,
+			"updated_at": 1630776616
+		}
 	}
 	```
 
@@ -160,32 +160,31 @@ Update video detail by its id.
 - Body:
 	```json
 	{
-    	"time_to_show_next": 4
+		"time_to_show_next": 4
 	}
 	```
 - Response:
 	```json
 	{
-			"status": 0,
-			"data": {
-					"id": "4dea4a7a-b570-49c9-a617-21ebf298b1c9",
-					"created_at": "1630776616",
-					"default_next_detail_id": null,
-					"next_video_details": [
-							{
-									"shown_text": "test 1",
-									"next_detail_id": null
-							}
-					],
-					"prev_detail_id": null,
-					"time_to_show_next": 4,
-					"updated_at": 1630776735,
-					"video_id": null,
-					"video_url": ""
-			}
+		"status": 0,
+		"data": {
+			"id": "4dea4a7a-b570-49c9-a617-21ebf298b1c9",
+			"created_at": "1630776616",
+			"default_next_detail_id": null,
+			"next_video_details": [
+				{
+					"shown_text": "test 1",
+					"next_detail_id": null
+				}
+			],
+			"prev_detail_id": null,
+			"time_to_show_next": 4,
+			"updated_at": 1630776735,
+			"video_id": null,
+			"video_url": ""
+		}
 	}
 	```
-
 
 #### Delete Video Detail
 
@@ -193,8 +192,8 @@ Update video detail by its id.
 - Response:
 	```json
 	{
-			"status": 0,
-			"data": "OK"
+		"status": 0,
+		"data": "OK"
 	}
 	```
 
@@ -472,3 +471,8 @@ Update video detail by its id.
 	}
 }
 ```
+
+### CQL Example
+
+- ![video](./assets/video.png)
+- ![video_detail](./assets/video_detail.png)
