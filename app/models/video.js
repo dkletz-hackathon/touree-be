@@ -15,7 +15,7 @@ const columns = [
 	"created_at",
 	"updated_at",
 ];
-const allColumnsType = [
+const createHints = [
 	"uuid",
 	"text",
 	"text",
@@ -25,6 +25,16 @@ const allColumnsType = [
 	"uuid",
 	"bigint",
 	"bigint",
+];
+const updateHints = [
+	"text",
+	"text",
+	"uuid",
+	"text",
+	"text",
+	"uuid",
+	"bigint",
+	null
 ];
 
 function _insertQuery() {
@@ -86,7 +96,7 @@ async function create(data) {
 	console.log(insQuery, params);
 	const rs = await datastax
 		.getClient()
-		.execute(insQuery, params, { hints: allColumnsType });
+		.execute(insQuery, params, { hints: createHints });
 
 	return { rs, data };
 }
@@ -103,11 +113,13 @@ async function updateById(id, data) {
 	}
 	params.push(Uuid.fromString(id));
 
-	const rs = await datastax
-		.getClient()
-		.execute(prefixUpQuery + "where id = ?", params, {
-			hints: allColumnsType,
-		});
+	const updateQuery = prefixUpQuery + " where id = ?";
+
+	console.log(updateQuery, params);
+
+	const rs = await datastax.getClient().execute(updateQuery, params, {
+		hints: updateHints,
+	});
 
 	return { rs, data };
 }

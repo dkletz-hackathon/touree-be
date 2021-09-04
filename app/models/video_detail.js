@@ -14,7 +14,7 @@ const columns = [
 	"created_at",
 	"updated_at",
 ];
-const allColumnsType = [
+const createHints = [
 	"uuid",
 	"uuid",
 	"uuid",
@@ -25,6 +25,7 @@ const allColumnsType = [
 	"bigint",
 	"bigint",
 ];
+const updateHints = ["uuid", "uuid", null, "bigint", "text", "bigint", null];
 
 function _insertQuery() {
 	let query = "INSERT INTO touree.video_detail (";
@@ -53,7 +54,7 @@ function _prefixUpdateQuery() {
 	let setColumns = [];
 
 	for (let i = 0; i < columns.length; i++) {
-		if (columns[i] === "created_at") {
+		if (columns[i] === "created_at" || columns[i] === "video_id") {
 			continue;
 		}
 
@@ -76,11 +77,11 @@ async function create(data) {
 		params.push(data[columns[i]]);
 	}
 
-	console.log(insQuery, params, allColumnsType);
+	console.log(insQuery, params, createHints);
 
 	const rs = await datastax
 		.getClient()
-		.execute(insQuery, params, { prepare: true, hints: allColumnsType });
+		.execute(insQuery, params, { prepare: true, hints: createHints });
 
 	return { rs, data };
 }
@@ -89,7 +90,7 @@ async function updateById(id, data) {
 	data.updated_at = Math.floor(Date.now() / 1000);
 	let params = [];
 	for (let i = 0; i < columns.length; i++) {
-		if (columns[i] === "created_at") {
+		if (columns[i] === "created_at" || columns[i] === "video_id") {
 			continue;
 		}
 
@@ -97,19 +98,23 @@ async function updateById(id, data) {
 	}
 	params.push(Uuid.fromString(id));
 
-	const rs = await datastax
-		.getClient()
-		.execute(prefixUpQuery + "where id = ?", params, {
-			hints: allColumnsType,
-		});
+	const updateQuery = prefixUpQuery + " where id = ?";
+
+	console.log(updateQuery, params);
+
+	const rs = await datastax.getClient().execute(updateQuery, params, {
+		hints: updateHints,
+		prepare: true,
+	});
 
 	return { rs, data };
 }
 
 async function getById(id) {
-	return await getFirst("SELECT * from touree.video_detail where id = ?", [
-		Uuid.fromString(id),
-	]);
+	return await getFirst(
+		"SELECT * from touree.video_detail where id = ? ALLOW FILTERING",
+		[Uuid.fromString(id)]
+	);
 }
 
 async function getByVideoId(videoId) {
