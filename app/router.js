@@ -11,6 +11,7 @@ const videoDetailHandler = require("./handlers/video_detail");
 const { AppError, ERROR_CODE } = require("./error");
 const { pushEvent } = require("./models/event");
 const { getInsight } = require("./models/insight");
+const videoModel = require("./models/video");
 
 const router = new Router();
 
@@ -59,7 +60,13 @@ router.post("/event/:type", async (ctx, next) => {
 	ctx.status = 200;
 });
 router.get("/video/:id/insight", async (ctx, next) => {
-	await getInsight(ctx.params.id);
+	const { id } = ctx.params;
+	const vid = await videoModel.getById(id);
+
+	vid.details = await getInsight(ctx.params.id);
+
+	ctx.body = vid
+
 	ctx.status = 200;
 });
 

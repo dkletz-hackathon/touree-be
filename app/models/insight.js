@@ -28,7 +28,7 @@ async function getInsight(videoId) {
     }
   }
 
-  return rs
+  return vidDetails
 }
 
 module.exports = {
