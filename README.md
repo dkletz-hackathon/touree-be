@@ -2,6 +2,12 @@
 
 **touree-be** is backend server of toure application.
 
+## How to run
+
+1. Fill `datastax` config in `config/default.js`
+2. Our connection initiation is really simple, can be seen in `app/database/datastax.js`
+3. `node app`
+
 ## API
 
 **touree-be** APIs mainly consisted of video and video detail objects.
@@ -196,6 +202,36 @@ Update video detail by its id.
 		"data": "OK"
 	}
 	```
+
+### Uploader
+
+#### Upload Image
+
+- POST `/upload-image`
+- Body (form-data):
+	- `image`=`<image content>` 
+- Response:
+	```json
+	{
+		"status": 0,
+		"data" : "path"
+	}
+	```
+
+#### Upload Video
+
+- POST `/upload-video`
+- Body (form-data):
+	- `video`=`<video content>` 
+- Response:
+	```json
+	{
+		"status": 0,
+		"data" : "path"
+	}
+	```
+
+#### Upload Video
 
 ## DB Cassandra Model
 
