@@ -5,8 +5,10 @@ async function getInsight(videoId) {
   let query = `SELECT * from touree.video_event_tab where video_id = '${videoId}'`
   let rs = await getClient().execute(query)
 
+  const vidDetails = await videoDetailModel.getByVideoId(videoId)
+
   if (rs === undefined || rs === null) {
-    return null
+    return vidDetails
   }
 
   let countMap = {}
@@ -35,7 +37,6 @@ async function getInsight(videoId) {
     }
   })
 
-  const vidDetails = await videoDetailModel.getByVideoId(videoId)
 
   for (let i = 0; i < vidDetails.length; i++) {
     if (vidDetails[i]['video_id'].toString() in countMap) {
