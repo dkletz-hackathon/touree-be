@@ -12,14 +12,14 @@ const filenameHandler = async (req, file, cb) => {
 const videoStorage = multer.diskStorage({
 	filename: filenameHandler,
 	destination: function (req, file, cb) {
-		cb(null, "./static/video");
+		cb(null, "./public/video");
 	},
 });
 
 const imageStorage = multer.diskStorage({
 	filename: filenameHandler,
 	destination: function (req, file, cb) {
-		cb(null, "./static/image");
+		cb(null, "./public/image");
 	},
 });
 

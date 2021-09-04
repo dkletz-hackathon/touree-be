@@ -17,7 +17,7 @@ datastax.initClient().then(() => {
 	app.use(cors());
 	app.use(logger());
 
-	app.use(mount("/static", serve(path.join(__dirname + "/../static"))));
+	app.use(mount("/public", serve(path.join(__dirname + "/../public"))));
 	app.use(bodyParser()).use(router.routes()).use(router.allowedMethods());
 
 	app.listen(3000);
