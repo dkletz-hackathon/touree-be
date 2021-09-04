@@ -39,8 +39,8 @@ async function getInsight(videoId) {
 
 
   for (let i = 0; i < vidDetails.length; i++) {
-    if (vidDetails[i]['video_id'].toString() in countMap) {
-      vidDetails[i].count = countMap[vidDetails[i]['video_id'].toString()]
+    if (vidDetails[i]['id'].toString() in countMap) {
+      vidDetails[i].count = countMap[vidDetails[i]['id'].toString()]
     }
   }
 
