@@ -1,5 +1,6 @@
 const cassandra = require("cassandra-driver");
 const Uuid = cassandra.types.Uuid;
+
 const datastax = require("../database/datastax");
 const { getFirst } = require("./utils");
 
@@ -13,6 +14,17 @@ const columns = [
 	"user_id",
 	"created_at",
 	"updated_at",
+];
+const allColumnsType = [
+	"uuid",
+	"text",
+	"text",
+	"uuid",
+	"text",
+	"text",
+	"uuid",
+	"bigint",
+	"bigint",
 ];
 
 function _insertQuery() {
@@ -63,21 +75,24 @@ async function getById(id) {
 
 async function create(data) {
 	data.id = Uuid.random();
-	data.created_at = Date.now();
-	data.updated_at = Date.now();
+	data.created_at = Math.floor(Date.now() / 1000);
+	data.updated_at = Math.floor(Date.now() / 1000);
 
 	let params = [data.id];
 	for (let i = 0; i < columns.length; i++) {
 		params.push(data[columns[i]]);
 	}
 
-	const rs = await datastax.getClient().execute(insQuery, params);
+	console.log(insQuery, params);
+	const rs = await datastax
+		.getClient()
+		.execute(insQuery, params, { hints: allColumnsType });
 
 	return { rs, data };
 }
 
 async function updateById(id, data) {
-	data.updated_at = Date.now();
+	data.updated_at = Math.floor(Date.now() / 1000);
 	let params = [];
 	for (let i = 0; i < columns.length; i++) {
 		if (columns[i] === "created_at") {
@@ -90,9 +105,11 @@ async function updateById(id, data) {
 
 	const rs = await datastax
 		.getClient()
-		.execute(prefixUpQuery + "where id = ?", params);
+		.execute(prefixUpQuery + "where id = ?", params, {
+			hints: allColumnsType,
+		});
 
-	return rs;
+	return { rs, data };
 }
 
 async function deleteById(id) {

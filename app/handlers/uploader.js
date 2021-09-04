@@ -1,13 +1,13 @@
 const multer = require("@koa/multer");
 const uuid = require("uuid");
 
-function filenameHandler(req, file, cb) {
+const filenameHandler = async (req, file, cb) => {
 	const fileFormat = file.originalname.split(".");
 	cb(
 		null,
 		uuid.v4() + "-" + Date.now() + "." + fileFormat[fileFormat.length - 1]
 	);
-}
+};
 
 const videoStorage = multer.diskStorage({
 	filename: filenameHandler,
@@ -43,16 +43,12 @@ const imageUploader = multer({
 	storage: imageStorage,
 });
 
-async function postHandleUpload(ctx) {
+const postHandleUpload = async (ctx) => {
 	const file = ctx.request.file;
 
 	console.log(file);
-
-	ctx.body = {
-		status: "OK",
-		path: file.path,
-	};
-}
+	ctx.body = file.path;
+};
 
 module.exports = {
 	videoUploader,
