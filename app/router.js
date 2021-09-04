@@ -6,6 +6,7 @@ const {
 	postHandleUpload,
 } = require("./handlers/uploader");
 const videoHandler = require("./handlers/video");
+const videoDetailHandler = require("./handlers/video_detail");
 
 const { AppError, ERROR_CODE } = require("./error");
 const { pushEvent } = require("./models/event");
@@ -46,7 +47,12 @@ router.post("/upload-video", videoUploader.single("video"), postHandleUpload);
 router.post("/upload-image", imageUploader.single("image"), postHandleUpload);
 
 router.post("/video", videoHandler.createVideo);
-router.get("/video/:id", videoHandler.getVideoById);
+router.get("/video/:id", videoHandler.getVideo);
+router.post("/video/:id", videoHandler.updateVideo);
+
+router.post("/video_detail", videoDetailHandler.createVideoDetail);
+router.post("/video_detail/:id", videoDetailHandler.updateVideoDetail);
+router.delete("/video_detail/:id", videoDetailHandler.deleteVideoDetail);
 
 router.post("/event/:type", async (ctx, next) => {
 	await pushEvent(parseInt(ctx.params.type), ctx.request.body);

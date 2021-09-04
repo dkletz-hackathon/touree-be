@@ -7,7 +7,9 @@ const partitionColumns = ["id"];
 const columns = [
 	"video_id",
 	"prev_detail_id",
+	"default_next_detail_id",
 	"next_video_details",
+	"time_to_show_next",
 	"video_url",
 	"created_at",
 	"updated_at",
@@ -16,7 +18,9 @@ const allColumnsType = [
 	"uuid",
 	"uuid",
 	"uuid",
+	"uuid",
 	null,
+	"bigint",
 	"text",
 	"bigint",
 	"bigint",
@@ -72,9 +76,11 @@ async function create(data) {
 		params.push(data[columns[i]]);
 	}
 
+	console.log(insQuery, params, allColumnsType);
+
 	const rs = await datastax
 		.getClient()
-		.execute(insQuery, params, { hints: allColumnsType });
+		.execute(insQuery, params, { prepare: true, hints: allColumnsType });
 
 	return { rs, data };
 }
@@ -108,7 +114,7 @@ async function getById(id) {
 
 async function getByVideoId(videoId) {
 	return await getMultiple(
-		"SELECT * from touree.video_detail where video_id = ?",
+		"SELECT * from touree.video_detail where video_id = ? ALLOW FILTERING",
 		[Uuid.fromString(videoId)]
 	);
 }
