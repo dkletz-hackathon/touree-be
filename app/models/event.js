@@ -1,5 +1,5 @@
 const xid = require("xid");
-const {getClient} = require("./database/datastax");
+const {getClient} = require("../database/datastax");
 const {raw} = require("config/raw");
 
 const PLAY = 1;
