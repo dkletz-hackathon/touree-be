@@ -1,5 +1,6 @@
 const xid = require("xid");
 const {getClient} = require("./database/datastax");
+const {raw} = require("config/raw");
 
 const PLAY = 1;
 const RESUME = 2;
@@ -15,6 +16,7 @@ const columns = [
   'video_id',
   'user_id',
   'previous_video_id',
+  'current_video_id',
   'play_ts',
   'resume_ts',
   'pause_ts',
@@ -48,6 +50,7 @@ function parseEvent(eventType, rawEvent) {
     video_id: rawEvent.video_id,
     user_id: rawEvent.user_id,
     previous_video_id: rawEvent.previous_video_id,
+    current_video_id: rawEvent.current_video_id
   }
 
   switch (eventType) {
