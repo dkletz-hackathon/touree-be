@@ -1,3 +1,6 @@
+const cassandra = require("cassandra-driver");
+const Uuid = cassandra.types.Uuid;
+
 const videoModel = require("../models/video");
 const videoDetailModel = require("../models/video_detail");
 
@@ -29,6 +32,11 @@ const updateVideo = async (ctx) => {
 	const { body } = ctx.request;
 
 	const vid = await videoModel.getById(id);
+
+	if (body.start_detail_id) {
+		body.start_detail_id = Uuid.fromString(body.start_detail_id);
+	}
+
 	const updateData = { ...vid, ...body };
 
 	console.log(updateData);
