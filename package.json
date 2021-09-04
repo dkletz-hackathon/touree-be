@@ -9,7 +9,8 @@
     "cassandra-driver": "^4.6.3",
     "config": "^3.3.6",
     "koa": "^2.13.1",
-    "koa-router": "^10.1.1"
+    "koa-router": "^10.1.1",
+    "xid": "0.0.2"
   },
   "devDependencies": {
     "prettier": "^2.3.2"
