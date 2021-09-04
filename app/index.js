@@ -1,4 +1,9 @@
 const datastax = require("./database/datastax");
+const Koa = require("koa");
+const {router} = require("./router");
+const bodyParser = require('koa-bodyparser');
+
+const app = new Koa();
 
 // testing
 datastax
@@ -9,6 +14,11 @@ datastax
 	})
 	.then((rs) => {
 		console.log(`Your cluster returned ${rs.rowLength} row(s)`);
-
-		return datastax.shutdown();
 	});
+
+app
+	.use(bodyParser())
+	.use(router.routes())
+	.use(router.allowedMethods())
+
+app.listen(3000);

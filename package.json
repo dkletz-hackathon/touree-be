@@ -5,10 +5,14 @@
   "repository": "git@github.com:dkletz-hackathon/touree-be.git",
   "author": "Joseph Salimin <joseph.salimin@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node app/index.js"
+  },
   "dependencies": {
     "cassandra-driver": "^4.6.3",
     "config": "^3.3.6",
     "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.1.1",
     "xid": "0.0.2"
   },

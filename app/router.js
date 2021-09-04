@@ -1,19 +1,18 @@
-var Koa = require('koa');
-var Router = require('koa-router');
+const Koa = require('koa');
+const Router = require('koa-router');
 const {pushEvent} = require("./event");
 
-var app = new Koa();
-var router = new Router();
+const router = new Router();
 
 router.get('/', (ctx, next) => {
   // ctx.router available
 });
 
-router.post('/event/:type', (ctx, next) => {
-  pushEvent(ctx.params.type, ctx.body)
+router.post('/event/:type', async (ctx, next) => {
+  await pushEvent(parseInt(ctx.params.type), ctx.request.body)
   ctx.status = 200;
 })
 
-app
-  .use(router.routes())
-  .use(router.allowedMethods());
+module.exports = {
+  router
+}

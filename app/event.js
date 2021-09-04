@@ -9,6 +9,7 @@ const LIKE = 5;
 const COMMENT = 6
 
 const columns = [
+  'partition_time',
   'trace_id',
   'event_id',
   'video_id',
@@ -22,19 +23,26 @@ const columns = [
   'comment_ts'
 ]
 
-let query = 'INSERT INTO video_event_tab VALUES ('
+let query = 'INSERT INTO touree.video_event_tab ('
+let query2 = 'VALUES ('
 
 for (let i = 0; i < columns.length; i++) {
   query += columns[i]
+  query2 += '?'
   if (i !== columns.length - 1) {
     query += ','
+    query2 += ','
   }
 }
 
 query += ')'
+query2 += ')'
+
+query = query + query2
 
 function parseEvent(eventType, rawEvent) {
   let eventBody = {
+    partition_time: new Date(),
     trace_id: rawEvent.trace_id,
     event_id: xid.generateId(),
     video_id: rawEvent.video_id,
