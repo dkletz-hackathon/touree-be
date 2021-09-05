@@ -19,9 +19,9 @@ const updateVideoDetail = async (ctx) => {
 	const { id } = ctx.params;
 	const { body } = ctx.request;
 
-	body.video_id = null;
 	const vidDetail = await videoDetailModel.getById(id);
 	const updateData = { ...vidDetail, ...body };
+	updateData.video_id = vidDetail.video_id;
 
 	console.log(updateData);
 
