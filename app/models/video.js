@@ -2,7 +2,7 @@ const cassandra = require("cassandra-driver");
 const Uuid = cassandra.types.Uuid;
 
 const datastax = require("../database/datastax");
-const { getFirst } = require("./utils");
+const { getFirst, getMultiple } = require("./utils");
 
 const partitionColumns = ["id"];
 const columns = [
@@ -83,6 +83,10 @@ async function getById(id) {
 	]);
 }
 
+async function getAll() {
+	return await getMultiple("SELECT * from touree.video", [])
+}
+
 async function create(data) {
 	data.id = Uuid.random();
 	data.created_at = Math.floor(Date.now() / 1000);
@@ -132,6 +136,7 @@ async function deleteById(id) {
 
 module.exports = {
 	getById,
+	getAll,
 	create,
 	updateById,
 	deleteById,

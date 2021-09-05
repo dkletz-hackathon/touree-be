@@ -17,6 +17,12 @@ const getVideo = async (ctx) => {
 	ctx.body = vid;
 };
 
+const getVideos = async (ctx) => {
+	const vids = await videoModel.getAll();
+
+	ctx.body = vids;
+};
+
 const createVideo = async (ctx) => {
 	const { body } = ctx.request;
 
@@ -53,5 +59,6 @@ const updateVideo = async (ctx) => {
 module.exports = {
 	getVideo,
 	createVideo,
+	getVideos,
 	updateVideo,
 };

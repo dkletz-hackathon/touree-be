@@ -47,6 +47,7 @@ router.use(async (ctx, next) => {
 router.post("/upload-video", videoUploader.single("video"), postHandleUpload);
 router.post("/upload-image", imageUploader.single("image"), postHandleUpload);
 
+router.get("/video", videoHandler.getVideos);
 router.post("/video", videoHandler.createVideo);
 router.get("/video/:id", videoHandler.getVideo);
 router.post("/video/:id", videoHandler.updateVideo);
@@ -65,7 +66,7 @@ router.get("/video/:id/insight", async (ctx, next) => {
 
 	vid.details = await getInsight(ctx.params.id);
 
-	ctx.body = vid
+	ctx.body = vid;
 
 	ctx.status = 200;
 });
